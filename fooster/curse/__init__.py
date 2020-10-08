@@ -8,7 +8,7 @@ import redbaron
 __all__ = ['alternatives', 'substitute', 'rewrite']
 
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 
 identifier_start_categories = [
@@ -47,7 +47,6 @@ def alternatives(char, start=True):
         return alts
 
 
-@functools.lru_cache
 def substitute(identifier, *, extra_safe=False):
     normal = unicodedata.normalize('NFKC', identifier)
     subbed = []
