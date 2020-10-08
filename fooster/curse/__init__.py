@@ -8,7 +8,7 @@ import redbaron
 __all__ = ['alternatives', 'substitute', 'rewrite']
 
 
-__version__ = '0.2'
+__version__ = '0.3'
 
 
 identifier_start_categories = [
@@ -71,6 +71,9 @@ def rewrite(source):
         node.value = substitute(node.value, extra_safe=True)
 
     for node in fst.find_all('defnode'):
+        node.name = substitute(node.name)
+
+    for node in fst.find_all('classnode'):
         node.name = substitute(node.name)
 
     return fst.dumps()
