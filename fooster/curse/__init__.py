@@ -8,7 +8,7 @@ import redbaron
 __all__ = ['alternatives', 'substitute', 'rewrite']
 
 
-__version__ = '0.3'
+__version__ = '0.4'
 
 
 identifier_start_categories = [
