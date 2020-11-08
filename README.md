@@ -5,9 +5,7 @@
     $ pip install fooster-curse
     $ curse file.py
 
-Output is still a valid Python program with identical function[1] and maintains API compatibility despite identifiers being mangled and with the same identifier mangled differently for each occurrence in the file.
-
-<sup>[1] Technically it will have different function if non-identifiers in the input file aren't ascii but that is due to a workaround put in place to allow cursing already cursed files since [Baron does not like non-ascii identifiers](https://github.com/PyCQA/baron/issues/164)</sup>
+Output is still a valid Python program with identical function and maintains API compatibility despite identifiers being mangled and with the same identifier mangled differently for each occurrence in the file.
 
 
 ## Rule of Three Clause

@@ -47,7 +47,7 @@ setup(
     url='https://github.com/lilyinstarlight/python-fooster-curse',
     author='Lily Foster',
     author_email='lily@lily.flowers',
-    install_requires=['redbaron'],
+    install_requires=['libcst'],
     packages=find_packages(),
     namespace_packages=['fooster'],
     entry_points={'console_scripts': ['curse = fooster.curse.__main__:main']},

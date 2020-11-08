@@ -2,13 +2,13 @@ import functools
 import random
 import unicodedata
 
-import redbaron
+import libcst
 
 
 __all__ = ['alternatives', 'substitute', 'rewrite']
 
 
-__version__ = '0.4.1'
+__version__ = '0.5.0'
 
 
 identifier_start_categories = [
@@ -47,33 +47,27 @@ def alternatives(char, start=True):
         return alts
 
 
-def substitute(identifier, *, extra_safe=False):
+def substitute(identifier):
     normal = unicodedata.normalize('NFKC', identifier)
     subbed = []
 
-    if extra_safe:
-        subbed.append(normal[0])
-    else:
-        subbed.append(random.choice(alternatives(normal[0], True)))
+    subbed.append(random.choice(alternatives(normal[0], True)))
     for char in normal[1:]:
-        subbed.append(random.choice(alternatives(char, extra_safe)))
+        subbed.append(random.choice(alternatives(char)))
 
     return ''.join(subbed)
 
 
+class SubstituteTransformer(libcst.CSTTransformer):
+    def leave_Name(self, original_node, updated_node):
+        return updated_node.with_changes(value=substitute(updated_node.value))
+
+
 def rewrite(source):
-    fst = redbaron.RedBaron(unicodedata.normalize('NFKC', source))
+    cst = libcst.parse_module(source)
 
-    for node in fst.find_all('namenode'):
-        node.value = substitute(node.value)
+    transformer = SubstituteTransformer()
 
-    for node in fst.find_all('nameasnamenode'):
-        node.value = substitute(node.value, extra_safe=True)
+    cursed_cst = cst.visit(transformer)
 
-    for node in fst.find_all('defnode'):
-        node.name = substitute(node.name)
-
-    for node in fst.find_all('classnode'):
-        node.name = substitute(node.name)
-
-    return fst.dumps()
+    return cursed_cst.code
