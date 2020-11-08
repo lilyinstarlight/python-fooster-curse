@@ -3,7 +3,9 @@
 ## Usage
 
     $ pip install fooster-curse
-    $ curse file.py
+    $ curse file.py >cursed_file.py
+    $ cat cursed_file.py
+    $ python cursed_file.py
 
 Output is still a valid Python program with identical function and maintains API compatibility despite identifiers being mangled and with the same identifier mangled differently for each occurrence in the file.
 
